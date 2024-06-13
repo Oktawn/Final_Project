@@ -1,0 +1,52 @@
+.typing-game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.text-container {
+    position: relative;
+    font-size: 24px;
+    font-family: monospace;
+}
+
+.sample-text {
+    color: #ccc;
+}
+
+.user-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
+.user-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.sample-text .pending {
+    color: #ccc;
+}
+
+.sample-text .correct {
+    color: #ccc;
+}
+
+.sample-text .incorrect {
+    color: #FF5722;
+    text-decoration: underline;
+    text-decoration-style: wavy;
+}
