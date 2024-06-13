@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-// import './Keyboard.css';
+
 
 function Keyboard({ userInput, onInputChange }) {
     const inputRef = useRef(null);
@@ -14,6 +14,10 @@ function Keyboard({ userInput, onInputChange }) {
         setInputText(newValue);
         onInputChange(newValue);
     };
+
+    useEffect(() => {
+        setInputText(userInput);
+    }, [userInput]);
 
     return (
         <div>

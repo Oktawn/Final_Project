@@ -1,12 +1,19 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
-function Results({ speed, errors }) {
+function Results() {
+    const location = useLocation();
+    const { correct, incorrect, wpm, rawWpm } = location.state;
+
     return (
-        <div className="results">
-            <p>Speed: {speed} WPM</p>
-            <p>Errors: {errors}</p>
+        <div>
+            <h1>Результаты Теста</h1>
+            <p>Правильных слов: {correct}</p>
+            <p>Неправильных слов: {incorrect}</p>
+            <p>WPM: {wpm}</p>
+            <p>raw WPM: {rawWpm}</p>
         </div>
     );
-};
+}
 
-export { Results };
+export default Results;

@@ -4,6 +4,8 @@ import Main from "./pages/Main";
 import MainLayout from "../layouts/MainLayout";
 import Login from "./pages/Login";
 import Loading from "./pages/loading";
+import Results from "./components/Result/Result";
+import About from "./pages/about";
 
 function Router() {
     return (
@@ -14,6 +16,8 @@ function Router() {
                         <Route path="/" element={<Loading />} />
                         <Route path="/main" element={<Main />} />
                         <Route path="/login" element={<Login />} />
+                        <Route path="/results" element={<Results />} />
+                        <Route path="/about" element={<About />} />
                     </Route>
                     <Route path="*" element={<Page_404 />} />
                 </Routes>
