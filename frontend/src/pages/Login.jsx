@@ -6,7 +6,7 @@ function Login() {
             <input type="email" />
             <label htmlFor="password">Password</label>
             <input type="password" />
-            <button>Google Sign In</button>
+            <button><i className='fa fa-google'></i> Google Sign In</button>
             <button> Register </button>
             <button> Login </button>
         </div>
