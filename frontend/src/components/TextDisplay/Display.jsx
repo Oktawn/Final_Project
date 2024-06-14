@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Keyboard } from "../Keyboard/Keyboard";
+import { SettingTest } from "../SettingTest/SettingTest";
 import { useNavigate } from "react-router-dom";
 
 const textList = [
@@ -45,10 +46,11 @@ function Display() {
                 setCurrentWordIndex(nextIndex);
                 setUserInput('');
             } else {
+                // Завершение теста и переход на страницу результатов
                 const endTime = Date.now();
-                const timeElapsedInMinutes = (endTime - wpm) / 60000;
-                const calculatedWpm = ((words.correct + 1) / timeElapsedInMinutes).toFixed(2);
-                const calculatedWpmRaw = ((words.correct + words.incorrect + 1) / timeElapsedInMinutes).toFixed(2);
+                const timeElapsedInMinutes = (endTime - wpm) / 60000; // Время в минутах
+                const calculatedWpm = ((words.correct + 1) / timeElapsedInMinutes).toFixed(2); // words.correct + 1 to include the last word
+                const calculatedWpmRaw = ((words.correct + words.incorrect + 1) / timeElapsedInMinutes).toFixed(2); // words.correct + 1 to include the last word
                 navigate('/results', { state: { correct: words.correct + 1, incorrect: words.incorrect, wpm: calculatedWpm, rawWpm: calculatedWpmRaw } });
             }
         }

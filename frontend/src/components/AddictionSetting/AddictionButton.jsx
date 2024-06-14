@@ -1,11 +1,12 @@
-import React from 'react';
+import "./Addiction.css";
 
-function AddictionButton({ onClick, children }) {
+function AddictionButton({ children }) {
+
     return (
-        <button onClick={onClick}>
+        <button>
             {children}
         </button>
-    );
+    )
 }
 
 export { AddictionButton };
