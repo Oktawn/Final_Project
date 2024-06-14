@@ -31,4 +31,3 @@ router.get("/oauth", async function (req, res, next) {
     console.log(error);
   }
 });
-
