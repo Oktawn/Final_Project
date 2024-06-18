@@ -1,15 +1,17 @@
 import { createContext } from 'react';
-import useLocalStorage from 'use-local-storage';
+import { ThemeStore } from '../../State/useState';
 
 const ThemeContext = createContext(false);
 
 function ThemeProvider({ children }) {
 
-    const [theme, setTheme] = useLocalStorage(false);
+    const theme = ThemeStore((state) => state.getTheme());
+    const changeTheme = ThemeStore((state) => state.changeTheme);
+
     document.querySelector(':root').setAttribute('data-theme', theme ? 'darkTheme' : 'lightTheme');
 
     const toggleTheme = () => {
-        setTheme(prevTheme => !prevTheme);
+        changeTheme();
         document.querySelector(':root').setAttribute('data-theme', theme ? 'darkTheme' : 'lightTheme');
 
     };

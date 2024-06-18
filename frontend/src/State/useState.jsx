@@ -23,3 +23,15 @@ export const testsStore = create(persist((set, get) => ({
         name: 'store',
         getStorage: () => sessionStorage
     }));
+
+export const ThemeStore = create(persist((set, get) => ({
+    theme: false,
+    changeTheme: () => { set(state => ({ theme: !state.theme })) },
+    getTheme: () => { return get().theme },
+}),
+    {
+        name: 'theme',
+        getStorage: () => localStorage,
+    }
+)
+);
