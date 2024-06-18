@@ -2,7 +2,7 @@ import React from 'react';
 
 function AddictionButton({ onClick, children }) {
     return (
-        <button onClick={onClick}>
+        <button className='setting-button' onClick={onClick}>
             {children}
         </button>
     );
