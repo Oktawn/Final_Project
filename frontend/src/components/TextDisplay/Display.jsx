@@ -21,10 +21,12 @@ function Display() {
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [userInput, setUserInput] = useState('');
     const navigate = useNavigate();
+    const textWords = randomText.split(' ');
+    const wordsShow = 30;
+
 
     useEffect(() => {
-        const text = getRandomText(textList);
-        setRandomText(text);
+        setRandomText(getRandomText(textList));
         setWpm(Date.now())
     }, []);
 
@@ -32,7 +34,6 @@ function Display() {
         setUserInput(value);
         if (value.endsWith(' ') || (currentWordIndex === textWords.length - 1 && value.trim() === textWords[currentWordIndex])) {
             const cleanedValue = value.trim();
-            const textWords = randomText.split(' ');
 
             if (cleanedValue === textWords[currentWordIndex]) {
                 setWords((prevWords) => ({ correct: prevWords.correct + 1, incorrect: prevWords.incorrect }));
@@ -55,7 +56,6 @@ function Display() {
     };
 
 
-    const textWords = randomText.split(' ');
 
     return (
         <div className="text-display">
@@ -69,8 +69,7 @@ function Display() {
             <Keyboard userInput={userInput} onInputChange={handleInputChange} />
             <p>
                 <button onClick={() => {
-                    const text = getRandomText(textList);
-                    setRandomText(text);
+                    setRandomText(getRandomText(textList));
                     setCurrentWordIndex(0);
                     setUserInput('');
                     setWords({ correct: 0, incorrect: 0 });

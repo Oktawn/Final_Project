@@ -135,7 +135,7 @@ footer {
   margin-top: 10%;
   gap: 1rem;
   justify-content: space-around;
-  align-items: center;
+  align-items: baseline;
   width: 100%;
 }
 
@@ -208,4 +208,10 @@ a:hover {
   color: var(--text-color);
   text-align: justify;
   font-size: 20px;
+}
+
+.caret {
+  color: var(--caret-color);
+  cursor: text;
+  
 }
