@@ -1,4 +1,6 @@
-require("dotenv").config({ path: path.join(__dirname, ".env") });
-const cfg = require("./knexfile.js")[process.env.NODE_ENV];
+require("dotenv").config();
+const cfg = require("../knexfile.js")[process.env.NODE_ENV];
+
+console.log(process.env.NODE_ENV);
 
 module.exports = require("knex")(cfg);

@@ -1,20 +1,26 @@
 const Koa = require("koa");
-const mainRouter = require("./routes/routes");
-const testsRouter = require("./routes/tests");
 require("dotenv").config();
-const app = new Koa();
-app.use(mainRouter.routes(), mainRouter.allowedMethods());
-app.use(testsRouter.routes(), testsRouter.allowedMethods());
+const bodyParser = require("koa-bodyparser");
+const session = require("koa-session");
+const pass = require("koa-passport");
 
-app.use(async (ctx) => {
-  ctx.body = {
-    status: "success",
-    message: "hello, world!",
-  };
-});
+const mainRouter = require("./routes/routes.js");
+const testsRouter = require("./routes/tests.js");
+const resultsRouter = require("./routes/results.js");
+
+const app = new Koa();
+const PORT = process.env.PORT;
+
+app.keys = [process.env.SECRET_KEY];
+app.use(session(app));
+app.use(bodyParser());
+
+app.use(mainRouter.routes());
+app.use(testsRouter.routes());
+app.use(resultsRouter.routes());
 
 const server = app.listen(PORT, () => {
-  console.log(`Server listening on port: ${process.env.PORT}`);
+  console.log(`Server listening on port: ${PORT}`);
 });
 
 module.exports = server;

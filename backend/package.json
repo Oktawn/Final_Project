@@ -12,8 +12,10 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/koa": "^2.15.0",
     "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa-passport": "^6.0.3",
     "@types/koa-router": "^7.4.8",
     "@types/koa-session": "^6.4.5",
     "chai-http": "^5.0.0",
@@ -27,6 +29,7 @@
     "knex": "^3.1.0",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",
+    "koa-passport": "^6.0.0",
     "koa-router": "^12.0.1",
     "koa-session": "^6.4.0",
     "pg": "^8.12.0"
