@@ -6,8 +6,8 @@ const BASE_URL = "/results";
 
 router
   .get(BASE_URL, async (ctx) => {
-    const result = await query.getResults(ctx.query.id);
     try {
+      const result = await query.getResults(ctx.query.id);
       ctx.status = 200;
       ctx.body = result;
     } catch (error) {
@@ -16,8 +16,8 @@ router
     }
   })
   .post(BASE_URL, async (ctx) => {
-    const result = await query.addResult(ctx.request.body);
     try {
+      const result = await query.addResult(ctx.request.body);
       ctx.status = 200;
       ctx.body = result;
     } catch (error) {

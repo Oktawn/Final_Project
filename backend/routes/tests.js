@@ -5,8 +5,8 @@ const router = new Router();
 const BASE_URL = "/main";
 
 router.get(BASE_URL, async (ctx) => {
-  const test = await query.getTest(ctx.query.mode, ctx.query.size);
   try {
+    const test = await query.getTest(ctx.query.mode, ctx.query.size);
     ctx.status = 200;
     ctx.body = test;
   } catch (error) {

@@ -4,7 +4,7 @@
  */
 exports.seed = async function (knex, Promise) {
   // Deletes ALL existing entries
-  // await knex("tests").del();
+  await knex("tests").del();
   return knex("tests").insert([
     {
       description: "А. П. Чехов - Верочка.",
