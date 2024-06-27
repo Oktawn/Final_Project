@@ -9,11 +9,13 @@ const BASE_URL_REG = "/register";
 router
   .post(BASE_URL_LOG, async (ctx) => {
     try {
+      const { username } = ctx.request.body;
       const res = await query.checkUser(ctx.request.body);
       if (res.status) {
         ctx.status = 302;
         ctx.body = res.message;
-        ctx.login(res.user);
+        ctx.session.isAuthenticated = true;
+        ctx.session.user = query.getUser(username);
       } else {
         ctx.status = 401;
         ctx.body = res.message;
@@ -27,27 +29,19 @@ router
 
   .post(BASE_URL_REG, async (ctx) => {
     try {
-      if (await query.checkUserName(ctx.request.body)) {
-        console.log("check login");
+      const { username, email, password } = ctx.request.body;
+      if (await query.checkUserName(username)) {
         ctx.status = 409;
         ctx.body = "username already taken";
         return;
-      } else if (await query.checkEmail(ctx.request.body)) {
-        console.log("check email");
+      } else if (await query.checkEmail(email)) {
         ctx.status = 409;
         ctx.body = "email already taken";
         return;
       } else {
-        const user = await query.addUserLocal(ctx.request.body);
-        return passport.authenticate("local", (err, user) => {
-          if (user) {
-            ctx.login(user);
-            ctx.status = 201;
-          } else {
-            ctx.status = 400;
-            ctx.body = err;
-          }
-        })(ctx);
+        const user = await query.addUserLocal(username, email, password);
+        ctx.session.isAuthenticated = true;
+        ctx.session.user = user;
       }
     } catch (error) {
       ctx.status = 400;
