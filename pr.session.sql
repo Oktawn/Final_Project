@@ -1,2 +1,3 @@
-SELECT count(*) FROM tests
- WHERE length>=300;
+SELECT *
+FROM tests
+WHERE test_id = 24;

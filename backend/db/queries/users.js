@@ -2,27 +2,25 @@ const bcrypt = require("bcryptjs");
 const knex = require("../connection");
 
 async function checkUserName(user) {
-  const check = await knex("users").select("*").where("username", "=", user);
+  const check = await knex("users")
+    .select("users")
+    .where("username", "=", user);
   return check.length > 0;
 }
 
 async function checkEmail(email) {
-  const check = await knex("users").select("*").where("email", "=", email);
+  const check = await knex("users").select("email").where("email", "=", email);
   return check.length > 0;
 }
 
-async function checkUser(user) {
-  if (await checkUserName(user)) {
-    const pass = await knex("users")
-      .select("*")
-      .where("username", "=", user.username);
-    if (bcrypt.compareSync(user.pass, pass[0].password)) {
-      return { status: true, message: "Login successful" };
-    } else {
-      return { status: false, message: "Invalid username or password" };
-    }
+async function checkUser(email, password) {
+  const user = await getUser(email);
+  
+  if (user.length && bcrypt.compareSync(password, user[0].password)) {
+    return { status: true, user: user };
+  } else {
+    return { status: false, mes: "email or password is invalid" };
   }
-  return { status: false, message: "Invalid username or password" };
 }
 
 async function addUserLocal(user, pass, email) {
@@ -30,11 +28,14 @@ async function addUserLocal(user, pass, email) {
   const hash = bcrypt.hashSync(pass, salt);
   return await knex("users")
     .insert([{ username: user, password: hash, email: email }])
-    .returning("*");
+    .returning(["user_id", "username", "email"]);
 }
 
-async function getUser(user) {
-  return await knex("users").select("*").where("username", "=", user);
+async function getUser(email) {
+  return await knex("users")
+    .select("*")
+    .where("email", "=", email)
+    .returning(["user_id", "username", "email", "avatar_url"]);
 }
 
 async function getUserById(id) {

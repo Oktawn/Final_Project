@@ -4,13 +4,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const query = require("../db/queries/users");
 
 passport.serializeUser((user, done) => {
-  if (user && user.user_id) {
-    done(null, user.user_id);
-  } else if (user && user.id) {
-    done(null, user.id);
-  } else {
-    done(new Error("Unable to serialize user"), null);
-  }
+  done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
@@ -27,9 +21,9 @@ passport.deserializeUser(async (id, done) => {
 });
 
 passport.use(
-  new LocalStrategy(async (username, password, done) => {
+  new LocalStrategy(async (email, password, done) => {
     try {
-      const user = await query.checkUser({ username, pass: password });
+      const user = await query.checkUser({ email, password });
       if (user.status) {
         return done(null, user);
       } else {
