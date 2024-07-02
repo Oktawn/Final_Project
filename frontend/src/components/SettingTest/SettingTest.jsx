@@ -6,15 +6,14 @@ import { testsStore } from '../../State/useState';
 function SettingTest() {
 
     const [selectedField, setSelectedField] = useState(null);
-    const { setMode } = testsStore((state) => ({ setMode: state.setMode }));
+    // const { setMode } = testsStore((state) => ({ setMode: state.setMode }));
 
     const handleButtonMode = (field) => {
         setSelectedField(field);
-        setMode({ mode: field });
     };
 
     const handleButtonOption = (option) => {
-        setMode({ option: option });
+        setMode({ mode: selectedField, option: option });
     };
 
     return (

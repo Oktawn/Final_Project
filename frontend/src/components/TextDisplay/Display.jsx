@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Keyboard } from "../Keyboard/Keyboard";
 import { useNavigate } from "react-router-dom";
+import { testsStore } from '../../State/useState';
 
 const textList = [
     "Я часто думаю о том, что хотел бы жить у моря. Никогда ранее бы и не подумал, что это место может быть таким привлекательным. Причем не только из-за бурления волн, которые иногда словно ураган разбиваются раскатом об аккуратно выложенный природой берег, но и из-за исключительно красивого заката. Такой восхитительный закат, кажется, так давно не приветствовал меня в городе.",
@@ -14,7 +15,13 @@ function getRandomText(texts) {
     return texts[randomIndex];
 }
 
+function updateText() {
+    const tests = testsStore((state) => state.getText());
+    return tests;
+}
+
 function Display() {
+    const tests = testsStore((state) => state.getText());
     const [words, setWords] = useState({ correct: 0, incorrect: 0 });
     const [wpm, setWpm] = useState(null);
     const [randomText, setRandomText] = useState('');
@@ -27,7 +34,7 @@ function Display() {
 
     useEffect(() => {
         setRandomText(getRandomText(textList));
-        setWpm(Date.now())
+        setWpm(Date.now());
     }, []);
 
     const handleInputChange = (value) => {
@@ -73,6 +80,7 @@ function Display() {
                     setCurrentWordIndex(0);
                     setUserInput('');
                     setWords({ correct: 0, incorrect: 0 });
+                    console.log(tests);
                 }}>
                     <i className='fa fa-refresh'></i>
                 </button>

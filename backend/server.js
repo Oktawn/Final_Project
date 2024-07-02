@@ -3,6 +3,7 @@ require("dotenv").config();
 // const passport = require("koa-passport");
 const bodyParser = require("koa-bodyparser");
 const session = require("koa-session");
+const cors = require("@koa/cors");
 
 const mainRouter = require("./routes/routes.js");
 const testsRouter = require("./routes/tests.js");
@@ -15,6 +16,7 @@ const PORT = process.env.PORT;
 app.keys = [process.env.SECRET_KEY];
 app.use(session(app));
 app.use(bodyParser());
+app.use(cors());
 
 app.use(authRouter.routes());
 app.use(mainRouter.routes());
