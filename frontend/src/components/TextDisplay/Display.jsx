@@ -3,38 +3,24 @@ import { Keyboard } from "../Keyboard/Keyboard";
 import { useNavigate } from "react-router-dom";
 import { testsStore } from '../../State/useState';
 
-const textList = [
-    "Я часто думаю о том, что хотел бы жить у моря. Никогда ранее бы и не подумал, что это место может быть таким привлекательным. Причем не только из-за бурления волн, которые иногда словно ураган разбиваются раскатом об аккуратно выложенный природой берег, но и из-за исключительно красивого заката. Такой восхитительный закат, кажется, так давно не приветствовал меня в городе.",
-    "Каждое утро я встаю с первыми лучами солнца, чтобы насладиться тишиной и спокойствием. Пение птиц и легкий ветерок создают особую атмосферу, которую сложно описать словами.",
-    "С приходом осени природа начинает играть новыми красками. Листья на деревьях меняют цвет и падают на землю, образуя мягкий ковер. Это время года всегда навевает на меня легкую грусть и ностальгию.",
-    "Быстрый набор."
-];
-
-function getRandomText(texts) {
-    const randomIndex = Math.floor(Math.random() * texts.length);
-    return texts[randomIndex];
-}
-
-function updateText() {
-    const tests = testsStore((state) => state.getText());
-    return tests;
-}
 
 function Display() {
-    const tests = testsStore((state) => state.getText());
+    const tests = testsStore((state) => state.getText);
+    const updateTests = testsStore((state) => state.setText);
     const [words, setWords] = useState({ correct: 0, incorrect: 0 });
     const [wpm, setWpm] = useState(null);
-    const [randomText, setRandomText] = useState('');
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [userInput, setUserInput] = useState('');
     const navigate = useNavigate();
-    const textWords = randomText.split(' ');
+    const [textWords, setTextWords] = useState("".split(' '));
     const wordsShow = 30;
 
 
     useEffect(() => {
-        setRandomText(getRandomText(textList));
+        updateTests();
         setWpm(Date.now());
+        console.log(tests());
+        setTextWords(tests().split(' '));
     }, []);
 
     const handleInputChange = (value) => {
@@ -76,11 +62,12 @@ function Display() {
             <Keyboard userInput={userInput} onInputChange={handleInputChange} />
             <p>
                 <button onClick={() => {
-                    setRandomText(getRandomText(textList));
                     setCurrentWordIndex(0);
                     setUserInput('');
                     setWords({ correct: 0, incorrect: 0 });
-                    console.log(tests);
+                    setWpm(0);
+                    updateTests();
+                    setTextWords(tests().split(' '));
                 }}>
                     <i className='fa fa-refresh'></i>
                 </button>

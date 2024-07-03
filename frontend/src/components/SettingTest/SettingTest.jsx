@@ -5,15 +5,15 @@ import { testsStore } from '../../State/useState';
 
 function SettingTest() {
 
-    const [selectedField, setSelectedField] = useState(null);
-    // const { setMode } = testsStore((state) => ({ setMode: state.setMode }));
+    const [selectedField, setSelectedField] = useState("quote");
+    const { setMode } = testsStore((state) => ({ setMode: state.setMode }));
 
     const handleButtonMode = (field) => {
         setSelectedField(field);
     };
 
     const handleButtonOption = (option) => {
-        setMode({ mode: selectedField, option: option });
+        setMode({ mode: selectedField, size: option });
     };
 
     return (
@@ -37,7 +37,6 @@ function SettingTest() {
                         <AddictionButton onClick={() => handleButtonOption('medium')}>medium</AddictionButton>
                         <AddictionButton onClick={() => handleButtonOption('long')}>long</AddictionButton>
                         <AddictionButton onClick={() => handleButtonOption('epic')}>epic</AddictionButton>
-
                     </div>
                 )}
             </div>
