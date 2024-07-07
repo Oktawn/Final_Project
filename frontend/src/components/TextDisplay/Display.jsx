@@ -5,23 +5,23 @@ import { testsStore } from '../../State/useState';
 
 
 function Display() {
-    const tests = testsStore((state) => state.getText);
     const updateTests = testsStore((state) => state.setText);
+    const textTest = testsStore((state) => state.text);
     const [words, setWords] = useState({ correct: 0, incorrect: 0 });
-    const [wpm, setWpm] = useState(null);
+    const [wpm, setWpm] = useState(0);
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [userInput, setUserInput] = useState('');
     const navigate = useNavigate();
-    const [textWords, setTextWords] = useState("".split(' '));
-    const wordsShow = 30;
-
+    const [textWords, setTextWords] = useState(textTest.split(' '));
 
     useEffect(() => {
-        updateTests();
-        setWpm(Date.now());
-        console.log(tests());
-        setTextWords(tests().split(' '));
-    }, []);
+        if (textTest.length === 0) {
+            updateTests();
+        } else {
+            setWpm(Date.now());
+            setTextWords(textTest.split(' '));
+        }
+    }, [textTest]);
 
     const handleInputChange = (value) => {
         setUserInput(value);
@@ -62,12 +62,12 @@ function Display() {
             <Keyboard userInput={userInput} onInputChange={handleInputChange} />
             <p>
                 <button onClick={() => {
+                    updateTests();
                     setCurrentWordIndex(0);
                     setUserInput('');
                     setWords({ correct: 0, incorrect: 0 });
                     setWpm(0);
-                    updateTests();
-                    setTextWords(tests().split(' '));
+                    setTextWords(textTest.split(' '));
                 }}>
                     <i className='fa fa-refresh'></i>
                 </button>

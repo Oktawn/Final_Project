@@ -1,16 +1,16 @@
+import { Link } from 'react-router-dom';
 import { ButtonTheme } from "../Theme/ButtonTheme";
 
-export function Header() {
+export default function Header() {
     return (
         <header>
             <nav>
-                <button title="Start Test"><a href="/main" > Start Test</a></button>
-                <button title="About"> <a href="/about" > About</a></button>
-                <button title="Account"> <a href="/account"  > Account</a></button>
-                <button title="Logout"> <a href="/login" > Logout</a></button>
+                <button><Link to="/main" title="Start Test">Start Test</Link></button>
+                <button><Link to="/about" title="About">About</Link></button>
+                <button><Link to="/account" title="Account">Account</Link></button>
+                <button><Link to="/login" title="Logout">Logout</Link></button>
                 <ButtonTheme />
             </nav>
         </header>
-    )
+    );
 }
-

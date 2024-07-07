@@ -18,7 +18,6 @@ export const testsStore = create((set, get) => ({
     setResult: (result) => set({ results: result }),
     setMode: (mode) => {
         set({ mode: mode });
-        // get().setText();
     },
     setWpm: (wpm) => set({ wpm }),
     setRawWpm: (rawWpm) => set({ rawWpm }),
@@ -31,7 +30,9 @@ export const testsStore = create((set, get) => ({
             set({ text: testText });
         }
     },
-    getText: () => { return get().text },
+    getText: () => {
+        return get().text;
+    },
     getMode: () => { return get.mode },
     getWpm: () => { return get().wpm },
     getRawWpm: () => { return get().rawWpm }

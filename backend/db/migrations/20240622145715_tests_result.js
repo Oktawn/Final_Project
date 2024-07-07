@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("tests_result", (table) => {
     table.increments("id");
-    table.integer("user_id").unsigned().notNullable();
+    table.integer("user_id").notNullable();
     table.float("wpm");
     table.float("raw");
     table.float("accuracy");

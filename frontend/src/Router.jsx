@@ -3,7 +3,7 @@ import { Page_404 } from "./pages/Page_404";
 import Main from "./pages/Main";
 import MainLayout from "../layouts/MainLayout";
 import Login from "./pages/Login";
-import Loading from "./pages/loading";
+import Loading from "./pages/Loading";
 import Results from "./components/Result/Result";
 import About from "./pages/about";
 

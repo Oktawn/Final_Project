@@ -19,16 +19,16 @@ const ensureAuthenticated = async (ctx, next) => {
 router.post(BASE_URL_REG, async (ctx) => {
   try {
     const { username, email, password } = ctx.request.body;
-    console.log(username, email, password);
     if (!username || !email || !password) {
       ctx.throw(400, "no full info");
     }
-    if (await query.checkUserName(username)) {
-      ctx.throw(409, "username already exists");
-    }
-    if (await query.checkEmail(email)) {
-      ctx.throw(409, "Email already exists");
-    }
+    const ans = await query.checkNewUser(username, email);
+    ans.forEach((row) => {
+      if (row.username === username && row.email === email)
+        ctx.throw(409, "username and email already exists");
+      if (row.username === username) ctx.throw(409, "username already exists");
+      if (row.email === email) ctx.throw(409, "Email already exists");
+    });
     const user = await query.addUserLocal(username, email, password);
     ctx.status = 201;
     ctx.body = { message: "Registration successful", user: ctx.session.user };
@@ -54,12 +54,13 @@ router.post(BASE_URL_LOG, async (ctx) => {
       ctx.throw(401, ans.mes);
     }
     const user = ans.user;
+    console.log(user);
     ctx.session.user = {
-      id: user[0].user_id,
-      username: user[0].username,
-      email: user[0].email,
-      avatar: user[0].avatar,
-      created_at: user[0].created_at,
+      id: user.user_id,
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar,
+      created_at: user.created_at,
     };
     ctx.redirect("/status");
   } catch (error) {

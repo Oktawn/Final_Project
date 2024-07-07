@@ -10,7 +10,7 @@ exports.up = function (knex) {
     table.string("email").unique().notNullable();
     table.date("created_at").defaultTo(knex.fn.now());
     table.string("avatar_url");
-    table.string("google_id").unique();
+    table.integer("google_id").unique();
     table.boolean("is_google_user").defaultTo(false);
   });
 };

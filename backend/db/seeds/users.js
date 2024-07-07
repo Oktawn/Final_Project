@@ -14,5 +14,10 @@ exports.seed = async function (knex) {
       password: hash,
       email: "11@g.ru",
     },
+    {
+      username: "admin",
+      password: hash,
+      email: "admin@admin.ru",
+    }
   ]);
 };

@@ -1,23 +1,19 @@
 const bcrypt = require("bcryptjs");
 const knex = require("../connection");
 
-async function checkUserName(user) {
-  const check = await knex("users")
-    .select("users")
-    .where("username", "=", user);
-  return check.length > 0;
-}
-
-async function checkEmail(email) {
-  const check = await knex("users").select("email").where("email", "=", email);
-  return check.length > 0;
+async function checkNewUser(user, email) {
+  return await knex
+    .select("username", "email")
+    .from("users")
+    .where("username", "=", user)
+    .orWhere("email", "=", email);
 }
 
 async function checkUser(email, password) {
   const user = await getUser(email);
-  
+
   if (user.length && bcrypt.compareSync(password, user[0].password)) {
-    return { status: true, user: user };
+    return { status: true, user: user[0] };
   } else {
     return { status: false, mes: "email or password is invalid" };
   }
@@ -33,9 +29,8 @@ async function addUserLocal(user, pass, email) {
 
 async function getUser(email) {
   return await knex("users")
-    .select("*")
-    .where("email", "=", email)
-    .returning(["user_id", "username", "email", "avatar_url"]);
+    .select("user_id", "username", "email", "avatar_url","password")
+    .where("email", "=", email);
 }
 
 async function getUserById(id) {
@@ -69,10 +64,9 @@ async function updateUserAvatar(userId, avatarUrl) {
 }
 
 module.exports = {
+  checkNewUser,
   addUserLocal,
   checkUser,
-  checkUserName,
-  checkEmail,
   getUser,
   getUserById,
   getUserByGoogleId,
