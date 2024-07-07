@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-
 function Keyboard({ userInput, onInputChange }) {
     const inputRef = useRef(null);
     const [inputText, setInputText] = useState(userInput);
