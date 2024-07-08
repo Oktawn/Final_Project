@@ -71,9 +71,9 @@ form {
 }
 
 footer {
-  position: fixed;
+  position: relative;
   bottom: 10px;
-  width: 100%;
+  width: auto;
   gap: 20px;
   display: flex;
 }
@@ -81,7 +81,6 @@ footer {
 .text {
   color: var(--sub-color);
   position: relative;
-  z-index: -1;
 }
 
 .App,
@@ -229,4 +228,11 @@ a:hover {
   100% {
     opacity: 0;
   }
+}
+
+.separator {
+  width: .5rem;
+  height: auto;
+  background: var(--bg-color);
+  border-radius: .5rem;
 }

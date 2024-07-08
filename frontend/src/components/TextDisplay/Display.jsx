@@ -11,6 +11,7 @@ function Display() {
     const [wpm, setWpm] = useState(0);
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
+    const [allChar, setAllChar] = useState(0);
     const [userInput, setUserInput] = useState('');
     const navigate = useNavigate();
     const [textWords, setTextWords] = useState(textTest.split(' '));
@@ -50,6 +51,7 @@ function Display() {
             }
         } else {
             setCurrentCharIndex(value.length);
+            setAllChar(prevAllChar => prevAllChar + value.length);
         }
     };
 
@@ -62,7 +64,7 @@ function Display() {
                         {word.split('').map((char, charIndex) => (
                             <span key={charIndex}>
                                 {wordIndex === currentWordIndex && charIndex === currentCharIndex && <span className="cursor">|</span>}
-                                <span className={wordIndex === currentWordIndex && charIndex === currentCharIndex ? 'current-char' : wordIndex <= currentWordIndex && charIndex < currentCharIndex ? "after-char" : ''}>
+                                <span className={wordIndex === currentWordIndex && charIndex === currentCharIndex ? 'current-char' : wordIndex <= currentWordIndex && (charIndex < currentCharIndex) ? "after-char" : ''}>
                                     {char}
                                 </span>
                             </span>
@@ -77,6 +79,7 @@ function Display() {
                 <button onClick={() => {
                     updateTests();
                     setCurrentWordIndex(0);
+                    setCurrentCharIndex(0);
                     setUserInput('');
                     setWords({ correct: 0, incorrect: 0 });
                     setWpm(0);
