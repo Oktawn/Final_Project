@@ -15,12 +15,14 @@ function addResult(result) {
 function getStats(id) {
   return knex('tests_result')
     .select(
-      knex.raw('COUNT(*) as started_tests'),
-      knex.raw('COUNT(*) FILTER (WHERE complited = true) as passed_tests'),
-      knex.raw('MAX(wpm) as max_wpm'),
-      knex.raw('AVG(raw) as avg_wpm'),
-      knex.raw('MAX(accuracy) as max_accuracy'),
-      knex.raw('AVG(accuracy) as avg_accuracy')
+      knex.raw('COUNT(*) as start'),
+      knex.raw('COUNT(*) FILTER (WHERE complited = true) as pass'),
+      knex.raw('CAST( MAX(wpm) as Integer)as max_wpm'),
+      knex.raw('CAST(AVG(wpm) AS INTEGER) as avg_wpm'),
+      knex.raw('CAST(MAX(raw) AS INTEGER) as max_raw'),
+      knex.raw('CAST(AVG(raw) AS INTEGER) as avg_raw'),
+      knex.raw('CAST( MAX(accuracy) AS INTEGER) as max_acc'),
+      knex.raw('CAST(AVG(accuracy) AS INTEGER) as avg_acc')
     )
     .where('user_id', id);
 }

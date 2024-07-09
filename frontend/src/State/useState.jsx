@@ -49,3 +49,7 @@ export const ThemeStore = create(persist((set, get) => ({
     }
 )
 );
+
+export const StatsStore = create((set, get) => ({
+
+}))
