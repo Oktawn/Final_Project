@@ -2,7 +2,7 @@ const knex = require("../connection");
 
 function getResults(id) {
   return knex
-    .select("wpm", "raw", "accuracy", "mode", "complited", "created_at")
+    .select("wpm", "raw", "accuracy", "mode", "complied", "created_at")
     .from("tests_result")
     .where("user_id", id)
     .orderBy("created_at", "desc");
@@ -16,7 +16,7 @@ function getStats(id) {
   return knex('tests_result')
     .select(
       knex.raw('COUNT(*) as start'),
-      knex.raw('COUNT(*) FILTER (WHERE complited = true) as pass'),
+      knex.raw('COUNT(*) FILTER (WHERE complied = true) as pass'),
       knex.raw('CAST( MAX(wpm) as Integer)as max_wpm'),
       knex.raw('CAST(AVG(wpm) AS INTEGER) as avg_wpm'),
       knex.raw('CAST(MAX(raw) AS INTEGER) as max_raw'),

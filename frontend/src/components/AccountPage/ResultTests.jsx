@@ -1,19 +1,41 @@
+import { useEffect } from "react";
+import { StatsStore } from "../../State/useState";
+import moment from "moment";
 
 
 function ResultTests() {
+
+    const getResult = StatsStore((state) => state.getResult);
+    const results = StatsStore((state) => state.result);
+
+    useEffect(() => {
+        if (results.length === 1)
+            getResult();
+    }, []);
     return (
-        <div>
-            <table>
+        <table className="table" >
+            <thead>
                 <tr>
-                    <th>wpm</th>
-                    <th>raw</th>
-                    <th>accuracy</th>
-                    <th>mode</th>
-                    <th>date</th>
+                    <th>WPM</th>
+                    <th>Raw WPM</th>
+                    <th>Accuracy</th>
+                    <th>Mode</th>
+                    <th>Date</th>
                 </tr>
-            </table>
-        </div>
-    )
+            </thead>
+            <tbody>
+                {results.map((result, index) => (
+                    <tr key={index} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
+                        <td>{result.wpm}</td>
+                        <td>{result.raw}</td>
+                        <td>{result.accuracy}</td>
+                        <td>{result.mode}</td>
+                        <td>{moment(result.created_at).format('DD MMM YYYY HH:mm')}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    );
 }
 
 export { ResultTests };

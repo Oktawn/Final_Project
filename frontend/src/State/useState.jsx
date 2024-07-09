@@ -3,6 +3,8 @@ import { persist } from 'zustand/middleware';
 import ky from 'ky';
 
 const urlText = 'http://localhost:3000/test';
+const urlStats = 'http://localhost:3000/stats/1';
+const urlResult = 'http://localhost:3000/results/1';
 
 const testText = "С приходом осени природа начинает играть новыми красками.Листья на деревьях меняют цвет и падают на землю, образуя мягкий ковер.Это время года всегда навевает на меня легкую грусть и ностальгию.";
 
@@ -50,6 +52,30 @@ export const ThemeStore = create(persist((set, get) => ({
 )
 );
 
-export const StatsStore = create((set, get) => ({
+export const StatsStore = create(persist((set, get) => ({
+    stats: { "start": 0 },
+    result: [{ "wpm": 0, "rawWpm": 0, "accuracy": 0, "mode": "quote short", "date": new Date() }],
+    getStats: async () => {
+        try {
+            const response = await ky.get(urlStats).json();
+            set({ stats: await response[0] });
+        } catch {
+            console.log("error");
+        }
+    },
+    getResult: async () => {
+        try {
+            const response = await ky.get(urlResult).json();
+            set({ result: await response });
+        } catch {
+            console.log("error");
+        }
+    }
 
-}))
+}),
+    {
+        name: 'stats',
+        getStorage: () => localStorage,
+    }
+)
+);

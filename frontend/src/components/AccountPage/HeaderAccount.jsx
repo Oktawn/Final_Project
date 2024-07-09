@@ -1,4 +1,7 @@
-function HeaderAccount() {
+function HeaderAccount({ stats }) {
+
+
+
     const nickname = "Oktawn";
     const date = "14 June 2022";
     return (
@@ -14,15 +17,15 @@ function HeaderAccount() {
             <div className="short-stats">
                 <span>
                     <div className="text">test started</div>
-                    <p>60</p >
+                    <p>{stats.start}</p >
                 </span>
                 <span>
                     <div className="text">test completed</div>
-                    <p>60</p >
+                    <p>{stats.pass}</p >
                 </span>
                 <span>
                     <div className="text">test accuracy</div >
-                    <p >100%</p>
+                    <p >{stats.avg_acc}% </p>
                 </span>
             </div>
         </div>

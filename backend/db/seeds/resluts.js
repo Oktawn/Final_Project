@@ -11,13 +11,6 @@ exports.seed = async function (knex) {
       wpm: 40,
       raw: 45,
       accuracy: 80,
-      mode: "quite short"
-    },
-    {
-      user_id: 1,
-      wpm: 60,
-      raw: 86,
-      accuracy: 40,
       mode: "quite short",
     },
     {
@@ -26,7 +19,16 @@ exports.seed = async function (knex) {
       raw: 86,
       accuracy: 40,
       mode: "quite short",
-      complited: 0
-    }
+    },
+    {
+      user_id: 1,
+      wpm: 60,
+      raw: 86,
+      accuracy: 40,
+      mode: "quite short",
+      complied: 0,
+    },
   ]);
 };
+//knex migrate:latest --env development
+// knex seed:run --env development
