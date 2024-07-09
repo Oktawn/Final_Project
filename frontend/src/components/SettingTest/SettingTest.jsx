@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { AddictionButton } from "../AddictionSetting/AddictionButton";
-import "./Setting.css";
 import { testsStore } from '../../State/useState';
 
 function SettingTest() {

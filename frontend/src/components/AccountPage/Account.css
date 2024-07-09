@@ -3,6 +3,9 @@
     gap: 30px;
     margin-top: 50px;
     background-color: var(--sub-alt-color);
+    border-radius: 10px;
+    /* align-content: center; */
+
 }
 
 .img-acc {
@@ -20,4 +23,16 @@
     align-items: center;
     gap: 20px;
 
+}
+
+.short-stats {
+    display: flex;
+    align-items: baseline;
+    flex-grow: 1;
+}
+
+.short-stats span {
+    font-size: 2rem;
+    margin-right: 20px;
+    text-align: center;
 }

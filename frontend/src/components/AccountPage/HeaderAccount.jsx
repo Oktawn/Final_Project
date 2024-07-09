@@ -1,6 +1,3 @@
-import "./Account.css";
-
-
 function HeaderAccount() {
     const nickname = "Oktawn";
     const date = "14 June 2022";
@@ -14,19 +11,19 @@ function HeaderAccount() {
                 </div>
             </div>
             <div className="separator"></div>
-            <div>
-                <div>
+            <div className="short-stats">
+                <span>
                     <div className="text">test started</div>
-                    <div>60</div >
-                </div>
-                <div>
+                    <p>60</p >
+                </span>
+                <span>
                     <div className="text">test completed</div>
-                    <div>60</div >
-                </div>
-                <div>
+                    <p>60</p >
+                </span>
+                <span>
                     <div className="text">test accuracy</div >
-                    <div >100%</div>
-                </div>
+                    <p >100%</p>
+                </span>
             </div>
         </div>
     );

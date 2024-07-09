@@ -7,7 +7,7 @@ exports.seed = async function (knex) {
   const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync("123", salt);
   // Deletes ALL existing entries
-  await knex("users").del();
+  await knex.raw('TRUNCATE TABLE users, tests_result RESTART IDENTITY CASCADE');
   await knex("users").insert([
     {
       username: "oktawn",

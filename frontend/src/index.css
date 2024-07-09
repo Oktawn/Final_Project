@@ -80,7 +80,7 @@ footer {
 
 .text {
   color: var(--sub-color);
-  position: relative;
+  /* position: relative; */
 }
 
 .App,
@@ -169,11 +169,11 @@ footer {
 
 .setting {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
   margin-bottom: 50px;
   gap: 10px;
+  /* background-color: var(--sub-alt-color); */
 }
 
 .setting-button:focus {
@@ -216,6 +216,8 @@ a:hover {
   color: var(--caret-color);
   display: inline;
   animation: blink 1.2s linear infinite;
+  z-index: 99999;
+  cursor:text;
 }
 
 @keyframes blink {
@@ -232,7 +234,8 @@ a:hover {
 
 .separator {
   width: .5rem;
-  height: auto;
+  /* height: 8rem; */
+  height: 7rem;
   background: var(--bg-color);
   border-radius: .5rem;
 }
