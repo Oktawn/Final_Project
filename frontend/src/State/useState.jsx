@@ -54,17 +54,17 @@ export const ThemeStore = create(persist((set, get) => ({
 export const StatsStore = create(persist((set, get) => ({
     stats: { "start": 0 },
     result: [{ "wpm": 0, "rawWpm": 0, "accuracy": 0, "mode": "quote short", "date": new Date() }],
-    getStats: async () => {
+    getStats: async (id) => {
         try {
-            const response = await ky.get(urlStats + "/1").json();
+            const response = await ky.get(urlStats + `/${id}`).json();
             set({ stats: await response[0] });
         } catch {
             console.log("error");
         }
     },
-    getResult: async () => {
+    getResult: async (id) => {
         try {
-            const response = await ky.get(urlResult + "/1").json();
+            const response = await ky.get(urlResult + `/${id}`).json();
             set({ result: await response });
         } catch {
             console.log("error");

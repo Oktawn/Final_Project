@@ -4,14 +4,16 @@ import { Stats } from "../components/AccountPage/Stats";
 import "../components/AccountPage/Account.css"
 import { StatsStore } from "../State/useState";
 import { useEffect } from "react";
+import { useCookies } from 'react-cookie';
 
 function Account() {
 
     const getStats = StatsStore((state) => state.getStats);
     const stats = StatsStore((state) => state.stats);
-
+    const [cookies, setCookie] = useCookies(["user"]);
+    const user = cookies.user;
     useEffect(() => {
-        getStats();
+        getStats(user.user_id);
     }, []);
 
 
@@ -19,7 +21,7 @@ function Account() {
         <div>
             <HeaderAccount stats={stats} />
             <Stats stats={stats} />
-            <ResultTests />
+            <ResultTests id={user.user_id} />
         </div>
     );
 }
