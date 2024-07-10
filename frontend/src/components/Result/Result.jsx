@@ -1,18 +1,21 @@
+import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { LineCharts } from './LineChats';
 
-function Results() {
+const Results = () => {
     const location = useLocation();
-    const { correct, incorrect, wpm, rawWpm } = location.state;
+    const { wpmData, totalWpm, totalRawWpm } = location.state;
 
     return (
         <div>
-            <h1>Результаты Теста</h1>
-            <p>Правильных слов: {correct}</p>
-            <p>Неправильных слов: {incorrect}</p>
-            <p>WPM: {wpm}</p>
-            <p>raw WPM: {rawWpm}</p>
+            <h2>Results</h2>
+            <div>
+                <p>WPM: {totalWpm}</p>
+                <p> Raw WPM: {totalRawWpm}</p>
+            </div>
+            <LineCharts wpmData={wpmData} />
         </div>
     );
-}
+};
 
 export default Results;

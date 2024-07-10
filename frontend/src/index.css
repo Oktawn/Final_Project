@@ -174,7 +174,6 @@ footer {
   justify-content: center;
   margin-bottom: 50px;
   gap: 10px;
-  /* background-color: var(--sub-alt-color); */
 }
 
 .setting-button:focus {
@@ -213,12 +212,8 @@ a:hover {
 
 .cursor {
   display: inline-block;
-
   color: var(--caret-color);
-  display: inline;
   animation: blink 1.2s linear infinite;
-  z-index: 99999;
-  cursor: text;
 }
 
 @keyframes blink {
@@ -235,8 +230,16 @@ a:hover {
 
 .separator {
   width: .5rem;
-  /* height: 8rem; */
   height: 7rem;
   background: var(--bg-color);
   border-radius: .5rem;
+}
+
+.chart-container {
+  display: block;
+  box-sizing: border-box;
+  height: 10%;
+  width: 60%;
+  align-items: center;
+  margin: 0 auto;
 }
