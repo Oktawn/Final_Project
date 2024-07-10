@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { ThemeProvider } from './components/Theme/ThemeProvider.jsx'
+import { CookiesProvider } from 'react-cookie';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <CookiesProvider>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </CookiesProvider>
   </React.StrictMode>
 )

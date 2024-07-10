@@ -2,11 +2,11 @@ const Router = require("koa-router");
 const query = require("../db/queries/results.js");
 const router = new Router();
 
-const BASE_URL_RESULTS = "/results/:id";
-const BASE_URL_STATS = "/stats/:id";
+const BASE_URL_RESULTS = "/results";
+const BASE_URL_STATS = "/stats";
 
 router
-  .get(BASE_URL_RESULTS, async (ctx) => {
+  .get(BASE_URL_RESULTS+"/:id", async (ctx) => {
     try {
       const result = await query.getResults(ctx.params.id);
       ctx.status = 200;
@@ -16,7 +16,7 @@ router
       ctx.body = error;
     }
   })
-  .get(BASE_URL_STATS, async (ctx) => {
+  .get(BASE_URL_STATS+"/:id", async (ctx) => {
     try {
       const stats = await query.getStats(ctx.params.id);
       ctx.status = 200;

@@ -9,8 +9,8 @@ async function checkNewUser(user, email) {
     .orWhere("email", "=", email);
 }
 
-async function checkUser(email, password) {
-  const user = await getUser(email);
+async function checkUser(username, password) {
+  const user = await getUser(username);
 
   if (user.length && bcrypt.compareSync(password, user[0].password)) {
     return { status: true, user: user[0] };
@@ -19,7 +19,7 @@ async function checkUser(email, password) {
   }
 }
 
-async function addUserLocal(user, pass, email) {
+async function addUserLocal(user,email, pass ) {
   const salt = await bcrypt.genSalt();
   const hash = bcrypt.hashSync(pass, salt);
   return await knex("users")
@@ -27,10 +27,10 @@ async function addUserLocal(user, pass, email) {
     .returning(["user_id", "username", "email"]);
 }
 
-async function getUser(email) {
+async function getUser(username) {
   return await knex("users")
     .select("user_id", "username", "email", "avatar_url","password")
-    .where("email", "=", email);
+    .where("username", username);
 }
 
 async function getUserById(id) {

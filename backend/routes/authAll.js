@@ -5,16 +5,6 @@ const router = new Router();
 const BASE_URL_LOG = "/login";
 const BASE_URL_REG = "/register";
 
-const ensureAuthenticated = async (ctx, next) => {
-  if (ctx.session && ctx.session.user) {
-    ctx.body = { mes: "logout" };
-    await next();
-  } else {
-    ctx.status = 401;
-    ctx.body = { error: "Unauthorized" };
-  }
-};
-
 //router local registration
 router.post(BASE_URL_REG, async (ctx) => {
   try {
@@ -30,14 +20,10 @@ router.post(BASE_URL_REG, async (ctx) => {
       if (row.email === email) ctx.throw(409, "Email already exists");
     });
     const user = await query.addUserLocal(username, email, password);
+    const newUser = await query.getUser(user[0].email);
+    ctx.cookies.set("user", JSON.stringify(newUser[0]), { maxAge: 86400000 });
     ctx.status = 201;
-    ctx.body = { message: "Registration successful", user: ctx.session.user };
-    ctx.session.user = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-    };
-    ctx.redirect("/status");
+    ctx.redirect("/");
   } catch (error) {
     ctx.status = error.status || 400;
     ctx.body = error;
@@ -48,39 +34,31 @@ router.post(BASE_URL_REG, async (ctx) => {
 
 router.post(BASE_URL_LOG, async (ctx) => {
   try {
-    const { email, password } = ctx.request.body;
-    const ans = await query.checkUser(email, password);
+    const { username, password } = ctx.request.body;
+    const ans = await query.checkUser(username, password);
     if (!ans.status) {
       ctx.throw(401, ans.mes);
     }
+
+    if (ctx.cookies.get("user")) {
+      console.log("already")
+      ctx.redirect("/");
+      return;
+    }
+
     const user = ans.user;
-    console.log(user);
-    ctx.session.user = {
-      id: user.user_id,
-      username: user.username,
-      email: user.email,
-      avatar: user.avatar,
-      created_at: user.created_at,
-    };
-    ctx.redirect("/status");
+    ctx.cookies.set("user", JSON.stringify(user));
+    ctx.status = 200;
+    ctx.redirect("/");
   } catch (error) {
     ctx.status = error.status || 400;
     ctx.body = error;
   }
 });
 
-router.get("/status", async (ctx) => {
-  if (ctx.session && ctx.session.user) {
-    ctx.redirect("/");
-  } else {
-    ctx.body = { isAuthenticated: false };
-    ctx.redirect(BASE_URL_LOG);
-  }
-});
-router.get("/logout", ensureAuthenticated, (ctx) => {
-  ctx.session = null;
+router.get("/logout", (ctx) => {
+  ctx.cookies.set("user", null, { expires: new Date(0) })
   ctx.redirect(BASE_URL_LOG);
 });
 
 module.exports = router;
-module.exports.ensureAuthenticated = ensureAuthenticated;

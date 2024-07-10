@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import ky from 'ky';
 
+
+const url_reg = "http://localhost:3000/register";
+
 function RegistrationForm() {
     const [formData, setFormData] = useState({
         username: '',
@@ -16,7 +19,7 @@ function RegistrationForm() {
         e.preventDefault();
 
         try {
-            await ky.post('URL_для_регистрации', { json: formData });
+            await ky.post(url_reg, { json: formData });
             console.log('Пользователь успешно зарегистрирован');
         } catch (error) {
             console.error('Ошибка регистрации:', error);

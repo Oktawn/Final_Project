@@ -6,6 +6,8 @@ router.get("/", async (ctx) => {
     status: "success",
     message: "hello, world!",
   };
+  
+  const test= ctx.cookies.get("user");
 });
 
 module.exports = router;
