@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import ky from 'ky';
+import { useNavigate } from 'react-router-dom';
+import { SettingStore } from '../../State/useState';
 
 
 const url_reg = "http://localhost:3000/register";
 
 function RegistrationForm() {
+
+    const navigate = useNavigate();
+    const changeAuth = SettingStore((state) => state.changeAuth);
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -19,8 +24,10 @@ function RegistrationForm() {
         e.preventDefault();
 
         try {
-            await ky.post(url_reg, { json: formData });
+            await ky.post(url_reg, { json: { username: formData.username, email: formData.email, password: formData.password } });
             console.log('Пользователь успешно зарегистрирован');
+            changeAuth();
+            navigate('/account');
         } catch (error) {
             console.error('Ошибка регистрации:', error);
         }

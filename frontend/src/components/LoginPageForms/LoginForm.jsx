@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import ky from 'ky';
+import { SettingStore } from '../../State/useState';
+import { useCookies } from 'react-cookie';
+import { compareSync } from 'bcryptjs';
+import { useNavigate } from 'react-router-dom';
+
 const url_log = "http://localhost:3000/login";
 
 function LoginForm() {
 
-    // const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    const changeAuth = SettingStore((state) => state.changeAuth);
+    const [cookies] = useCookies(["user"]);
+    const user = cookies.user;
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         username: '',
@@ -18,9 +26,16 @@ function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (formData.username === user.username && compareSync(formData.password, user.password)) {
+            changeAuth();
+            navigate('/account');
+            return;
+        }
         try {
-            const test = await ky.post(url_log, { json: { username: formData.username, password: formData.password },credentials: 'include' });
-            console.log(test);
+            await ky.post(url_log, { json: { username: formData.username, password: formData.password }, credentials: 'include' });
+            changeAuth();
+            navigate('/account');
+            return;
         } catch (error) {
             console.error('Ошибка входа:', error);
         }

@@ -1,12 +1,12 @@
 import { createContext } from 'react';
-import { ThemeStore } from '../../State/useState';
+import { SettingStore } from '../../State/useState';
 
 const ThemeContext = createContext(false);
 
 function ThemeProvider({ children }) {
 
-    const theme = ThemeStore((state) => state.getTheme());
-    const changeTheme = ThemeStore((state) => state.changeTheme);
+    const theme = SettingStore((state) => state.getTheme());
+    const changeTheme = SettingStore((state) => state.changeTheme);
 
     document.querySelector(':root').setAttribute('data-theme', theme ? 'darkTheme' : 'lightTheme');
 

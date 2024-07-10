@@ -39,19 +39,23 @@ export const testsStore = create((set, get) => ({
     getRawWpm: () => { return get().rawWpm }
 }));
 
-export const ThemeStore = create(persist((set, get) => ({
+export const SettingStore = create(persist((set, get) => ({
     theme: false,
+    isAuth: false,
+    changeAuth: () => { set(state => ({ isAuth: !state.isAuth })) },
     changeTheme: () => { set(state => ({ theme: !state.theme })) },
     getTheme: () => { return get().theme },
+    getAuth: () => { return get().isAuth },
 }),
     {
-        name: 'theme',
+        name: 'SettingUser',
         getStorage: () => localStorage,
     }
+
 )
 );
 
-export const StatsStore = create(persist((set, get) => ({
+export const StatsStore = create((set, get) => ({
     stats: { "start": 0 },
     result: [{ "wpm": 0, "rawWpm": 0, "accuracy": 0, "mode": "quote short", "date": new Date() }],
     getStats: async (id) => {
@@ -75,10 +79,4 @@ export const StatsStore = create(persist((set, get) => ({
 
     }
 
-}),
-    {
-        name: 'stats',
-        getStorage: () => sessionStorage,
-    }
-)
-);
+}));

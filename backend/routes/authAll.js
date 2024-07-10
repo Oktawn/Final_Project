@@ -39,26 +39,19 @@ router.post(BASE_URL_LOG, async (ctx) => {
       ctx.throw(401, ans.mes);
     }
 
-    if (ctx.cookies.get("user")) {
-      console.log("already");
-      return;
-    }
-
     const user = ans.user;
-    console.log("user", user);
-    ctx.cookies.set("user", JSON.stringify(user),{ 
-      maxAge: 360000000000, 
-      httpOnly: false, 
+    ctx.cookies.set("user", JSON.stringify(user), {
+      maxAge: 86400000,
+      httpOnly: false,
     });
-    console.log("User cookie:", ctx.cookies.get("user"));
     ctx.status = 200;
   } catch (error) {
-    console.error('Ошибка входа:', error);
+    console.error("Ошибка входа:", error);
   }
 });
 
 router.get("/logout", (ctx) => {
-  ctx.cookies.set("user", null, { expires: new Date(0) })
+  ctx.cookies.set("user", null, { expires: new Date(0) });
   ctx.redirect(BASE_URL_LOG);
 });
 
