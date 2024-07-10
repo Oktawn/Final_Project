@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import ky from 'ky';
 import { useCookies } from 'react-cookie'
+import { json } from 'react-router-dom';
 
 const url_log = "http://localhost:3000/login";
 
 function LoginForm() {
 
-    const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    // const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
     const [formData, setFormData] = useState({
         username: '',
@@ -21,10 +22,9 @@ function LoginForm() {
         e.preventDefault();
 
         try {
-            await ky.post(url_log, { json: { username: formData.username, password: formData.password } });
-            const userCookie = cookies.user;
-            setCookie('user', userCookie);
-            console.log("User cookie:", userCookie);
+            const test = await ky.post(url_log, { json: { username: formData.username, password: formData.password },credentials: 'include' });
+            console.log(test);
+            // setCookie('user',test);
         } catch (error) {
             console.error('Ошибка входа:', error);
         }

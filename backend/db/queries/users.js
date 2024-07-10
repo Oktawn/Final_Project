@@ -34,7 +34,7 @@ async function getUser(username) {
 }
 
 async function getUserById(id) {
-  return await knex("users").select("*").where("id", "=", id).first();
+  return await knex("users").select("*").where("user_id", "=", id).first();
 }
 
 async function getUserByGoogleId(googleId) {

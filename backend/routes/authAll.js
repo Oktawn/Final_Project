@@ -23,7 +23,6 @@ router.post(BASE_URL_REG, async (ctx) => {
     const newUser = await query.getUser(user[0].email);
     ctx.cookies.set("user", JSON.stringify(newUser[0]), { maxAge: 86400000 });
     ctx.status = 201;
-    ctx.redirect("/");
   } catch (error) {
     ctx.status = error.status || 400;
     ctx.body = error;
@@ -41,18 +40,20 @@ router.post(BASE_URL_LOG, async (ctx) => {
     }
 
     if (ctx.cookies.get("user")) {
-      console.log("already")
-      ctx.redirect("/");
+      console.log("already");
       return;
     }
 
     const user = ans.user;
-    ctx.cookies.set("user", JSON.stringify(user));
+    console.log("user", user);
+    ctx.cookies.set("user", JSON.stringify(user),{ 
+      maxAge: 360000000000, 
+      httpOnly: false, 
+    });
+    console.log("User cookie:", ctx.cookies.get("user"));
     ctx.status = 200;
-    ctx.redirect("/");
   } catch (error) {
-    ctx.status = error.status || 400;
-    ctx.body = error;
+    console.error('Ошибка входа:', error);
   }
 });
 
