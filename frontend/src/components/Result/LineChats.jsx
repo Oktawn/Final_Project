@@ -35,6 +35,7 @@ function LineCharts({ wpmData }) {
                 }
             },
             y: {
+                beginZero: true,
                 title: {
                     display: true,
                     text: 'Words per Minute'
