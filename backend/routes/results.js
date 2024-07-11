@@ -30,9 +30,10 @@ router
   })
   .post(BASE_URL_RESULTS, async (ctx) => {
     try {
-      const result = await query.addResult(ctx.request.body);
+      const {user_id,wpm,raw,accuracy,mode,complited}=ctx.request.body;
+      await query.addResult(user_id,wpm,raw,accuracy,mode,complited);
       ctx.status = 200;
-      ctx.body = result;
+      ctx.body = "added";
     } catch (error) {
       ctx.status = 400;
       ctx.body = error;

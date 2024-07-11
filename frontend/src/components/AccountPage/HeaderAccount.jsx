@@ -1,16 +1,18 @@
-function HeaderAccount({ stats }) {
+import moment from "moment";
+
+function HeaderAccount({ stats,user }) {
 
 
 
-    const nickname = "Oktawn";
-    const date = "14 June 2022";
+    const nickname = user.username;
+    const date = user.created_at;
     return (
         <div className="account">
             <div className="user-img">
                 <img src="https://cdn.discordapp.com/avatars/298016102804619264/0ecfa645065209157fe3148b8bf78492.png" alt="" className="img-acc" aria-hidden="true" />
                 <div>
-                    <div className="user">{nickname}</div>
-                    <div className="text"> Joined {date}</div>
+                    <div className="user">{user.username}</div>
+                    <div className="text">{moment(user.created_at).format('DD MMM YYYY ')}</div>
                 </div>
             </div>
             <div className="separator"></div>

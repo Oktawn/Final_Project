@@ -10,7 +10,7 @@ function Account() {
 
     const getStats = StatsStore((state) => state.getStats);
     const stats = StatsStore((state) => state.stats);
-    const [cookies, setCookie] = useCookies(["user"]);
+    const [cookies] = useCookies(["user"]);
     const user = cookies.user;
     useEffect(() => {
         getStats(user.user_id);
@@ -19,7 +19,7 @@ function Account() {
 
     return (
         <div>
-            <HeaderAccount stats={stats} />
+            <HeaderAccount stats={stats} user={user} />
             <Stats stats={stats} />
             <ResultTests id={user.user_id} />
         </div>

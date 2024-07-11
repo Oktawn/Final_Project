@@ -26,9 +26,9 @@ function ResultTests({id}) {
             <tbody>
                 {results.map((result, index) => (
                     <tr key={index} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
-                        <td>{result.wpm}</td>
+                        <td>{result.wpm.toFixed(2)}</td>
                         <td>{result.raw}</td>
-                        <td>{result.accuracy}</td>
+                        <td>{result.accuracy.toFixed(2)}</td>
                         <td>{result.mode}</td>
                         <td>{moment(result.created_at).format('DD MMM YYYY HH:mm')}</td>
                     </tr>

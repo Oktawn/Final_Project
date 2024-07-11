@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { Keyboard } from "../Keyboard/Keyboard";
 import { useNavigate } from "react-router-dom";
 import { testsStore } from '../../State/useState';
+import { useCookies } from "react-cookie";
 
 function Display() {
     const updateTests = testsStore((state) => state.setText);
     const textTest = testsStore((state) => state.text);
+    const fetchTest = testsStore((state) => state.fetchTest);
     const [words, setWords] = useState({ correct: 0, incorrect: 0 });
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -15,6 +17,8 @@ function Display() {
     const [startTime, setStartTime] = useState(0);
     const [wpmData, setWpmData] = useState([{ time: 0, wpm: "0", rawWpm: "0" }]);
     const [isTestStarted, setIsTestStarted] = useState(false);
+    const [cookies] = useCookies(["user"]);
+    const user = cookies.user;
 
 
     useEffect(() => {
@@ -67,6 +71,9 @@ function Display() {
                 const timeElapsedInMinutes = (endTime - startTime) / 60000;
                 const calculatedWpm = ((words.correct + 1) / timeElapsedInMinutes).toFixed(2);
                 const calculatedWpmRaw = ((words.correct + words.incorrect + 1) / timeElapsedInMinutes).toFixed(2);
+                const acc = calculatedWpm / calculatedWpmRaw * 100;
+                const data = { wpm: calculatedWpm, raw: calculatedWpmRaw, acc: acc };
+                fetchTest(user, data, true);
                 navigate('/results', { state: { wpmData: wpmData, totalWpm: calculatedWpm, totalRawWpm: calculatedWpmRaw } });
             }
         } else {
@@ -83,6 +90,7 @@ function Display() {
         setWords({ correct: 0, incorrect: 0 });
         setWpmData([]);
         setTextWords(textTest.split(' '));
+        fetchTest(user, null, false);
     };
 
     return (

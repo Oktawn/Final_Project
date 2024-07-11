@@ -8,8 +8,18 @@ function getResults(id) {
     .orderBy("created_at", "desc");
 }
 
-function addResult(result) {
-  return knex("tests_result").insert(result);
+function addResult(user_id, wpm=0, raw=0, accuracy=0, mode, complited) {
+  return knex("tests_result").insert([
+    {
+      user_id: user_id,
+      wpm: wpm,
+      raw: raw,
+      accuracy: accuracy,
+      mode: mode,
+      complied: complited
+
+    }
+  ]);
 }
 
 function getStats(id) {

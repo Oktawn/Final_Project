@@ -9,19 +9,11 @@ const testText = "С приходом осени природа начинает
 
 export const testsStore = create((set, get) => ({
     text: "",
-    result: {
-        correct: 0,
-        incorrect: 0
-    },
-    wpm: 0,
-    rawWpm: 0,
     mode: { "mode": "quote", "size": "short" },
     setResult: (result) => set({ results: result }),
     setMode: (mode) => {
         set({ mode: mode });
     },
-    setWpm: (wpm) => set({ wpm }),
-    setRawWpm: (rawWpm) => set({ rawWpm }),
     setText: async () => {
         try {
             const mode = get().mode;
@@ -35,8 +27,39 @@ export const testsStore = create((set, get) => ({
         return get().text;
     },
     getMode: () => { return get.mode },
-    getWpm: () => { return get().wpm },
-    getRawWpm: () => { return get().rawWpm }
+    fetchTest: async (user, data, end) => {
+        const mode = get().mode;
+        const resMode = mode.mode + " " + mode.size;
+        console.log("test", data);
+        if (data === null && user !== null) {
+            await ky.post(urlResult, {
+                json: {
+                    user_id: user.user_id,
+                    mode: resMode,
+                    complited: end
+                }
+            })
+            return;
+        }
+
+        const { wpm, raw, acc } = data;
+        if (user !== null)
+            try {
+                await ky.post(urlResult, {
+                    json: {
+                        user_id: user.user_id,
+                        wpm: wpm,
+                        raw: raw,
+                        accuracy: acc,
+                        mode: resMode,
+                        complited: end
+                    }
+                })
+            }
+            catch (error) {
+                console.log(error);
+            }
+    }
 }));
 
 export const SettingStore = create(persist((set, get) => ({
