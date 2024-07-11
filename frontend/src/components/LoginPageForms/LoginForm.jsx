@@ -26,7 +26,7 @@ function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (formData.username === user.username && compareSync(formData.password, user.password)) {
+        if (user!==undefined && formData.username === user.username && compareSync(formData.password, user.password)) {
             changeAuth();
             navigate('/account');
             return;
