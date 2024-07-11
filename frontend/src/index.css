@@ -213,9 +213,9 @@ a:hover {
   display: inline-block;
   position: absolute;
   height: 1.1em;
+  transform: translateY(0.1em) translateX(-0.1em);
   transition: all ease-in-out 0.5s;
-  border-left: 2px solid var(--caret-color);
-  border-radius: 8px;
+  border-left: 3px solid var(--caret-color);
   color: var(--caret-color);
   animation: blink 1.2s linear infinite 1s;
   z-index: -22;
