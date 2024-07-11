@@ -88,7 +88,7 @@ function Display() {
         setCurrentCharIndex(0);
         setUserInput('');
         setWords({ correct: 0, incorrect: 0 });
-        setWpmData([]);
+        setWpmData([{ time: 0, wpm: "0", rawWpm: "0" }]);
         setTextWords(textTest.split(' '));
         if (isTestStarted)
             fetchTest(user, null, false);

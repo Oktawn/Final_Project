@@ -14,7 +14,7 @@ export default function Header() {
     return (
         <header>
             <nav>
-                <button><Link to="/main" title="Start Test">Start Test</Link></button>
+                <button><Link to="/" title="Start Test">Start Test</Link></button>
                 <button><Link to="/about" title="About">About</Link></button>
                 {auth ? (
                     <>

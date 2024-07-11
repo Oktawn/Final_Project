@@ -236,10 +236,10 @@ a:hover {
 }
 
 .chart-container {
-  display: block;
-  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 10%;
   width: 60%;
-  align-items: center;
   margin: 0 auto;
 }

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import './ProgressBar.css';
 
 function ProgressBar() {
     const [progress, setProgress] = useState(0);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -14,7 +12,6 @@ function ProgressBar() {
         if (progress >= 100) {
             clearInterval(timer);
             setProgress(0);
-            navigate('/main');
         }
 
         return () => {

@@ -1,10 +1,15 @@
-import Router from './Router'
+import { lazy, Suspense } from 'react'
+import { ProgressBar } from './components/ProgressBar/ProgressBar'
+
+const Router = lazy(() => import("./Router"));
 
 function App() {
   return (
-    <div >
-      <Router />
-    </div>
+    < >
+      <Suspense fallback={<ProgressBar />}>
+        <Router />
+      </Suspense>
+    </>
   )
 }
 

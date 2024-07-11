@@ -1,13 +1,12 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { LineCharts } from './LineChats';
 
 const Results = () => {
     const location = useLocation();
-    // console.log("log",location);
     const navigate = useNavigate();
     if (location.state === null) {
-        <Link to="/nonexistentpage">Go error Page</Link>
+        navigate('/');
         return null;
     }
     const { wpmData, totalWpm, totalRawWpm } = location.state;
@@ -25,4 +24,4 @@ const Results = () => {
     );
 };
 
-export default Results;
+export { Results };
