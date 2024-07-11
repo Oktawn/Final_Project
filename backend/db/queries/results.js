@@ -4,11 +4,11 @@ function getResults(id) {
   return knex
     .select("wpm", "raw", "accuracy", "mode", "complied", "created_at")
     .from("tests_result")
-    .where("user_id", id)
+    .where("user_id", id).andWhere("complied", true)
     .orderBy("created_at", "desc");
 }
 
-function addResult(user_id, wpm=0, raw=0, accuracy=0, mode, complited) {
+function addResult(user_id, wpm = 0, raw = 0, accuracy = 0, mode, complited) {
   return knex("tests_result").insert([
     {
       user_id: user_id,

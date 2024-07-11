@@ -3,14 +3,13 @@ import { StatsStore } from "../../State/useState";
 import moment from "moment";
 
 
-function ResultTests({id}) {
+function ResultTests({ id }) {
 
     const getResult = StatsStore((state) => state.getResult);
     const results = StatsStore((state) => state.result);
 
     useEffect(() => {
-        if (results.length === 1)
-            getResult(id);
+        getResult(id);
     }, []);
     return (
         <table className="table" >

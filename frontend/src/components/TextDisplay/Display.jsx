@@ -90,7 +90,8 @@ function Display() {
         setWords({ correct: 0, incorrect: 0 });
         setWpmData([]);
         setTextWords(textTest.split(' '));
-        fetchTest(user, null, false);
+        if (isTestStarted)
+            fetchTest(user, null, false);
     };
 
     return (
