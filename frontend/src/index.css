@@ -161,11 +161,6 @@ footer {
   font-size: 20px;
 }
 
-.incorrect {
-  text-decoration: underline;
-  text-decoration-color: var(--colorful-error-color);
-  color: var(--colorful-error-extra-color);
-}
 
 
 .setting {
@@ -210,11 +205,22 @@ a:hover {
   color: var(--text-color);
 }
 
+.incorrect-char {
+  color: var(--error-color);
+}
+
 .cursor {
   display: inline-block;
+  position: absolute;
+  height: 1.1em;
+  transition: all ease-in-out 0.5s;
+  border-left: 2px solid var(--caret-color);
+  border-radius: 8px;
   color: var(--caret-color);
-  animation: blink 1.2s linear infinite;
+  animation: blink 1.2s linear infinite 1s;
+  z-index: -22;
 }
+
 
 @keyframes blink {
 

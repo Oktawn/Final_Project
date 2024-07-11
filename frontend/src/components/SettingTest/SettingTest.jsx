@@ -6,13 +6,17 @@ function SettingTest() {
 
     const [selectedField, setSelectedField] = useState("quote");
     const { setMode } = testsStore((state) => ({ setMode: state.setMode }));
+    const updateTests = testsStore((state) => state.setText);
+
 
     const handleButtonMode = (field) => {
         setSelectedField(field);
+        updateTests();
     };
 
     const handleButtonOption = (option) => {
         setMode({ mode: selectedField, size: option });
+        updateTests();
     };
 
     return (

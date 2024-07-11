@@ -8,6 +8,7 @@ function Display() {
     const updateTests = testsStore((state) => state.setText);
     const textTest = testsStore((state) => state.text);
     const fetchTest = testsStore((state) => state.fetchTest);
+    const mode = testsStore((state) => state.mode);
     const [words, setWords] = useState({ correct: 0, incorrect: 0 });
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -19,6 +20,8 @@ function Display() {
     const [isTestStarted, setIsTestStarted] = useState(false);
     const [cookies] = useCookies(["user"]);
     const user = cookies.user;
+    const [timeLeft, setTimeLeft] = useState(null);
+
 
 
     useEffect(() => {
@@ -26,23 +29,41 @@ function Display() {
             updateTests();
         } else {
             setTextWords(textTest.split(' '));
+            if (mode.mode === "time")
+                setTimeLeft(parseInt(mode.size));
+            else
+                setTimeLeft(null);
         }
     }, [textTest]);
 
 
     useEffect(() => {
+        let timer;
         if (isTestStarted) {
-            const timer = setInterval(() => {
+            timer = setInterval(() => {
+                if (timeLeft) setTimeLeft((prevTime) => prevTime - 1);
                 const endTime = Date.now();
                 const timeElapsedInMinutes = (endTime - startTime) / 60000;
                 const calculatedWpm = ((words.correct + 1) / timeElapsedInMinutes).toFixed(2);
                 const calculatedWpmRaw = ((words.correct + words.incorrect + 1) / timeElapsedInMinutes).toFixed(2);
                 setWpmData((prevWpmData) => [...prevWpmData, { time: timeElapsedInMinutes, wpm: calculatedWpm, rawWpm: calculatedWpmRaw }]);
             }, 1000);
-
-            return () => clearInterval(timer);
         }
-    }, [isTestStarted, words, startTime]);
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            const endTime = Date.now();
+            const timeElapsedInMinutes = (endTime - startTime) / 60000;
+            const calculatedWpm = ((words.correct + 1) / timeElapsedInMinutes).toFixed(2);
+            const calculatedWpmRaw = ((words.correct + words.incorrect + 1) / timeElapsedInMinutes).toFixed(2);
+            const acc = calculatedWpm / calculatedWpmRaw * 100;
+            const data = { wpm: calculatedWpm, raw: calculatedWpmRaw, acc: acc };
+            fetchTest(user, data, true);
+            navigate('/results', { state: { wpmData: wpmData, totalWpm: calculatedWpm, totalRawWpm: calculatedWpmRaw } });
+        }
+
+        return () => clearInterval(timer);
+    }, [isTestStarted, words, startTime, timeLeft]);
 
     const handleInputChange = (value) => {
         setUserInput(value);
@@ -96,18 +117,23 @@ function Display() {
 
     return (
         <div className="text-display">
+            <div>  {timeLeft} </div>
             <div>
                 {textWords.map((word, wordIndex) => (
                     <span key={wordIndex}>
                         {word.split('').map((char, charIndex) => (
                             <span key={charIndex}>
-                                {wordIndex === currentWordIndex && charIndex === currentCharIndex && <span className="cursor">|</span>}
-                                <span className={wordIndex === currentWordIndex && charIndex === currentCharIndex ? 'current-char' : wordIndex <= currentWordIndex && (charIndex < currentCharIndex) ? "after-char" : ''}>
+                                {wordIndex === currentWordIndex && charIndex === currentCharIndex && (
+                                    <span className="cursor"></span>
+                                )}
+                                <span className={/* wordIndex === currentWordIndex && charIndex === currentCharIndex ? 'current-char' : */
+                                    wordIndex < currentWordIndex || (wordIndex === currentWordIndex && charIndex < currentCharIndex) ? "after-char" :/* 
+                                        wordIndex === currentWordIndex && charIndex === currentCharIndex && char !== userInput[currentCharIndex] ? "incorrect-char" : */ ''}>
                                     {char}
                                 </span>
                             </span>
                         ))}
-                        {wordIndex === currentWordIndex && currentCharIndex === word.length && <span className="cursor">|</span>}
+                        {wordIndex === currentWordIndex && currentCharIndex === word.length && <span className="cursor"></span>}
                         {wordIndex < textWords.length - 1 && ' '}
                     </span>
                 ))}
