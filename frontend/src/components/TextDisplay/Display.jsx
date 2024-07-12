@@ -112,7 +112,7 @@ function Display() {
         setWpmData([{ time: 0, wpm: "0", rawWpm: "0" }]);
         setTextWords(textTest.split(' '));
         if (isTestStarted)
-            fetchTest(user, null, false);
+            fetchTest(user, 0, false);
     };
 
     return (
@@ -121,14 +121,23 @@ function Display() {
                 <div>{timeLeft} </div>
                 <div>
                     {textWords.map((word, wordIndex) => (
-                        <span key={wordIndex}>
+                        <span key={wordIndex}
+                            className={wordIndex < currentWordIndex && word !== textWords[wordIndex] ? "incorrect-word" : ""}>
                             {word.split('').map((char, charIndex) => (
                                 <span key={charIndex}>
                                     {wordIndex === currentWordIndex && charIndex === currentCharIndex && (
                                         <span className="cursor"></span>
                                     )}
-                                    <span className={wordIndex < currentWordIndex || (wordIndex === currentWordIndex && charIndex < currentCharIndex) ? "after-char" :
-                                        wordIndex < currentWordIndex || (wordIndex === currentWordIndex && charIndex < currentCharIndex && char !== userInput[currentCharIndex]) ? "incorrect-char" : ''}>
+                                    <span className={
+                                        wordIndex < currentWordIndex ?
+                                            (word[charIndex] !== textWords[wordIndex][charIndex] ? "incorrect-char" : "correct-char") :
+                                            wordIndex === currentWordIndex ?
+                                                (charIndex < userInput.length ?
+                                                    (char !== userInput[charIndex] ? "incorrect-char" : "correct-char") :
+                                                    ""
+                                                ) :
+                                                ""
+                                    }>
                                         {char}
                                     </span>
                                 </span>
@@ -144,6 +153,9 @@ function Display() {
                         <i className='fa fa-refresh'></i>
                     </button>
                 </p>
+                {isTestStarted === false && <p style={{ textAlign: "center", fontSize: "20px" }}>
+                    Tap on the display and start typing the word to run the test
+                </p>}
             </div>
         </div>
     );

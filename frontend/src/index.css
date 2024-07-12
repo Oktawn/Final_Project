@@ -205,12 +205,8 @@ a:hover {
   font-size: 20px;
 }
 
-.after-char {
+.correct-char {
   color: var(--main-color);
-}
-
-.current-char {
-  color: var(--text-color);
 }
 
 .incorrect-char {
@@ -218,8 +214,7 @@ a:hover {
 }
 
 .incorrect-word {
-  text-decoration: underline;
-  text-decoration-color: var(--colorful-error-color);
+  text-decoration: underline var(--colorful-error-color);
 
 }
 
