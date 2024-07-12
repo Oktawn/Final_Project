@@ -58,8 +58,8 @@ function LoginForm() {
                 <input className="login-input" type="password" name="password" placeholder="Password" required onChange={handleChange} />
                 <button className="login-button" type="submit">Login</button>
             </form>
-            <p className="about-p" style={{ textAlign: "center" }}>or</p>
-            <button className="login-button" onClick={handleGoogleLogin}><i className='fa fa-google'></i>  Login with Google</button>
+            {/* <p className="about-p" style={{ textAlign: "center" }}>or</p>
+            <button className="login-button" onClick={handleGoogleLogin}><i className='fa fa-google'></i>  Login with Google</button> */}
         </div>
     );
 }

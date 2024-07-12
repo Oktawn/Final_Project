@@ -5,8 +5,15 @@ function Keyboard({ userInput, onInputChange }) {
     const [inputText, setInputText] = useState(userInput);
 
     useEffect(() => {
-        inputRef.current.focus();
-    }, []);
+        const handleClick = () => {
+            inputRef.current.focus();
+        };
+        document.addEventListener('click', handleClick);
+
+        return () => {
+            document.removeEventListener('click', handleClick);
+        };
+    }, [inputRef]);
 
     const handleInput = (e) => {
         const newValue = e.target.value;
@@ -23,6 +30,7 @@ function Keyboard({ userInput, onInputChange }) {
             <input id='keyboard'
                 ref={inputRef}
                 className='typing-input'
+                autoComplete='off'
                 value={inputText}
                 onInput={handleInput}
                 placeholder='Type here...'>

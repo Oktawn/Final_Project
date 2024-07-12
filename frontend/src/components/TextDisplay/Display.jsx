@@ -140,7 +140,7 @@ function Display() {
                     ))}
                 </div>
                 <Keyboard userInput={userInput} onInputChange={handleInputChange} />
-                <p>
+                <p style={{textAlign: "center"}}>
                     <button onClick={resetTest}>
                         <i className='fa fa-refresh'></i>
                     </button>

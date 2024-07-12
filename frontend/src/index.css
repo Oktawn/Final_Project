@@ -8,9 +8,8 @@
   background-color: var(--bg-color);
   color: var(--text-color);
   caret-color: var(--caret-color);
-  margin-left: 20px;
-  margin-right: 20px;
-  
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 ::selection {
@@ -53,6 +52,9 @@ a {
   text-decoration: none;
 }
 
+header {
+  padding-top: 10px;
+}
 
 button,
 select {
@@ -72,10 +74,10 @@ form {
 }
 
 footer {
-  display:inline-flex;
+  display: inline-flex;
   position: relative;
   gap: 20px;
-  padding: 20px;
+  padding: 10px;
   margin-top: 20px;
 }
 
@@ -107,9 +109,8 @@ footer {
   text-align: justify;
   font-size: 28px;
   line-height: 1.5;
-  margin-left: 100px;
-  margin-right: 100px;
-  color: var(--sub-color);  
+  margin-left: 20px;
+  color: var(--sub-color);
   user-select: none;
 }
 
@@ -123,6 +124,11 @@ footer {
   color: var(--main-color);
   font-size: inherit;
   font-family: inherit;
+}
+
+.typing-input {
+  position: absolute;
+  left: -9999px;
 }
 
 .login-form {
@@ -172,6 +178,10 @@ footer {
   gap: 10px;
 }
 
+.active {
+  color: var(--main-color);
+}
+
 .setting-button:focus {
   color: var(--main-color);
 }
@@ -182,7 +192,7 @@ a:hover {
   color: var(--text-color);
 }
 
-.about {  
+.about {
   min-height: 80vh;
 }
 
