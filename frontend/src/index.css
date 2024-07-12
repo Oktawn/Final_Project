@@ -98,7 +98,6 @@ footer {
 .page404 {
   display: grid;
   justify-content: center;
-  height: 100%;
   align-content: center;
   gap: 4rem;
 }
@@ -216,6 +215,12 @@ a:hover {
 
 .incorrect-char {
   color: var(--error-color);
+}
+
+.incorrect-word {
+  text-decoration: underline;
+  text-decoration-color: var(--colorful-error-color);
+
 }
 
 .cursor {

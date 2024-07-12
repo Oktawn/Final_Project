@@ -127,9 +127,8 @@ function Display() {
                                     {wordIndex === currentWordIndex && charIndex === currentCharIndex && (
                                         <span className="cursor"></span>
                                     )}
-                                    <span className={/* wordIndex === currentWordIndex && charIndex === currentCharIndex ? 'current-char' : */
-                                        wordIndex < currentWordIndex || (wordIndex === currentWordIndex && charIndex < currentCharIndex) ? "after-char" :
-                                            wordIndex < currentWordIndex || (wordIndex === currentWordIndex && charIndex < currentCharIndex && char !== userInput[currentCharIndex]) ? "incorrect-char" : ''}>
+                                    <span className={wordIndex < currentWordIndex || (wordIndex === currentWordIndex && charIndex < currentCharIndex) ? "after-char" :
+                                        wordIndex < currentWordIndex || (wordIndex === currentWordIndex && charIndex < currentCharIndex && char !== userInput[currentCharIndex]) ? "incorrect-char" : ''}>
                                         {char}
                                     </span>
                                 </span>
@@ -140,7 +139,7 @@ function Display() {
                     ))}
                 </div>
                 <Keyboard userInput={userInput} onInputChange={handleInputChange} />
-                <p style={{textAlign: "center"}}>
+                <p style={{ textAlign: "center" }}>
                     <button onClick={resetTest}>
                         <i className='fa fa-refresh'></i>
                     </button>
