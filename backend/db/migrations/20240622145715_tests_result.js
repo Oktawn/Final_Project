@@ -11,7 +11,7 @@ exports.up = function (knex) {
     table.float("accuracy");
     table.string("mode").notNullable();
     table.boolean("complied").notNullable().defaultTo(true);
-    table.date("created_at").defaultTo(knex.fn.now());
+    table.datetime("created_at").defaultTo(knex.fn.now());
     table.foreign("user_id").references("user_id").inTable("users");
   });
 };

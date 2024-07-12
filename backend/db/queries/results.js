@@ -27,12 +27,12 @@ function getStats(id) {
     .select(
       knex.raw('COUNT(*) as start'),
       knex.raw('COUNT(*) FILTER (WHERE complied = true) as pass'),
-      knex.raw('CAST( MAX(wpm) as Integer)as max_wpm'),
-      knex.raw('CAST(AVG(wpm) AS INTEGER) as avg_wpm'),
-      knex.raw('CAST(MAX(raw) AS INTEGER) as max_raw'),
-      knex.raw('CAST(AVG(raw) AS INTEGER) as avg_raw'),
-      knex.raw('CAST( MAX(accuracy) AS INTEGER) as max_acc'),
-      knex.raw('CAST(AVG(accuracy) AS INTEGER) as avg_acc')
+      knex.raw('CAST(MAX(wpm) as Integer) as max_wpm'),
+      knex.raw('CAST(AVG(wpm) FILTER (WHERE complied = true) AS INTEGER) as avg_wpm'),
+      knex.raw('CAST(MAX(raw) FILTER (WHERE complied = true) AS INTEGER) as max_raw'),
+      knex.raw('CAST(AVG(raw) FILTER (WHERE complied = true) AS INTEGER) as avg_raw'),
+      knex.raw('CAST(MAX(accuracy) FILTER (WHERE complied = true) AS INTEGER) as max_acc'),
+      knex.raw('CAST(AVG(accuracy) FILTER (WHERE complied = true) AS INTEGER) as avg_acc')
     )
     .where('user_id', id);
 }

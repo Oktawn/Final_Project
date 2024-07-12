@@ -10,6 +10,7 @@
   caret-color: var(--caret-color);
   margin-left: 20px;
   margin-right: 20px;
+  
 }
 
 ::selection {
@@ -71,13 +72,11 @@ form {
 }
 
 footer {
-  display: flex;
-  position: absolute;
-  width: auto;
-  height: 20px;
+  display:inline-flex;
+  position: relative;
   gap: 20px;
-  bottom: 0;
   padding: 20px;
+  margin-top: 20px;
 }
 
 .text {
@@ -86,12 +85,12 @@ footer {
 
 .App,
 .page404 {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  justify-self: center;
+  align-items: center;
+  margin-top: 100px;
   text-align: center;
+  min-height: 70vh;
 }
 
 .page404 {
@@ -108,9 +107,10 @@ footer {
   text-align: justify;
   font-size: 28px;
   line-height: 1.5;
-  margin-left: 300px;
-  margin-right: 200px;
-  color: var(--sub-color);
+  margin-left: 100px;
+  margin-right: 100px;
+  color: var(--sub-color);  
+  user-select: none;
 }
 
 .typing-input,
@@ -133,6 +133,7 @@ footer {
   justify-content: space-around;
   align-items: baseline;
   width: 100%;
+  min-height: 59vh;
 }
 
 .login-button {
@@ -181,10 +182,8 @@ a:hover {
   color: var(--text-color);
 }
 
-.about {
-  transition: background-color 0.25s ease 0s;
-  transition: transform 0.1s ease 0s;
-  cursor: default;
+.about {  
+  min-height: 80vh;
 }
 
 .about-h {

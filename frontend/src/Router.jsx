@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Page_404 } from "./pages/Page_404";
 import Main from "./pages/Main";
 import MainLayout from "../layouts/MainLayout";
-import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 import { SettingStore } from "./State/useState";
 import React, { Suspense, lazy } from 'react';
 

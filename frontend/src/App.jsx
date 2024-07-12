@@ -5,11 +5,11 @@ const Router = lazy(() => import("./Router"));
 
 function App() {
   return (
-    < >
+    <div>
       <Suspense fallback={<ProgressBar />}>
         <Router />
       </Suspense>
-    </>
+    </div>
   )
 }
 

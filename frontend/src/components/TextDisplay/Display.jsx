@@ -116,34 +116,36 @@ function Display() {
     };
 
     return (
-        <div className="text-display">
-            <div>  {timeLeft} </div>
-            <div>
-                {textWords.map((word, wordIndex) => (
-                    <span key={wordIndex}>
-                        {word.split('').map((char, charIndex) => (
-                            <span key={charIndex}>
-                                {wordIndex === currentWordIndex && charIndex === currentCharIndex && (
-                                    <span className="cursor"></span>
-                                )}
-                                <span className={/* wordIndex === currentWordIndex && charIndex === currentCharIndex ? 'current-char' : */
-                                    wordIndex < currentWordIndex || (wordIndex === currentWordIndex && charIndex < currentCharIndex) ? "after-char" :/* 
-                                        wordIndex === currentWordIndex && charIndex === currentCharIndex && char !== userInput[currentCharIndex] ? "incorrect-char" : */ ''}>
-                                    {char}
+        <div>
+            <div className="text-display">
+                <div>{timeLeft} </div>
+                <div>
+                    {textWords.map((word, wordIndex) => (
+                        <span key={wordIndex}>
+                            {word.split('').map((char, charIndex) => (
+                                <span key={charIndex}>
+                                    {wordIndex === currentWordIndex && charIndex === currentCharIndex && (
+                                        <span className="cursor"></span>
+                                    )}
+                                    <span className={/* wordIndex === currentWordIndex && charIndex === currentCharIndex ? 'current-char' : */
+                                        wordIndex < currentWordIndex || (wordIndex === currentWordIndex && charIndex < currentCharIndex) ? "after-char" :
+                                            wordIndex < currentWordIndex || (wordIndex === currentWordIndex && charIndex < currentCharIndex && char !== userInput[currentCharIndex]) ? "incorrect-char" : ''}>
+                                        {char}
+                                    </span>
                                 </span>
-                            </span>
-                        ))}
-                        {wordIndex === currentWordIndex && currentCharIndex === word.length && <span className="cursor"></span>}
-                        {wordIndex < textWords.length - 1 && ' '}
-                    </span>
-                ))}
+                            ))}
+                            {wordIndex === currentWordIndex && currentCharIndex === word.length && <span className="cursor"></span>}
+                            {wordIndex < textWords.length - 1 && ' '}
+                        </span>
+                    ))}
+                </div>
+                <Keyboard userInput={userInput} onInputChange={handleInputChange} />
+                <p>
+                    <button onClick={resetTest}>
+                        <i className='fa fa-refresh'></i>
+                    </button>
+                </p>
             </div>
-            <Keyboard userInput={userInput} onInputChange={handleInputChange} />
-            <p>
-                <button onClick={resetTest}>
-                    <i className='fa fa-refresh'></i>
-                </button>
-            </p>
         </div>
     );
 };
