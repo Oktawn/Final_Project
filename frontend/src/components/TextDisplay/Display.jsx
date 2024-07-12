@@ -95,7 +95,7 @@ function Display() {
                 const acc = calculatedWpm / calculatedWpmRaw * 100;
                 const data = { wpm: calculatedWpm, raw: calculatedWpmRaw, acc: acc };
                 fetchTest(user, data, true);
-                navigate('/results', { state: { wpmData: wpmData, totalWpm: calculatedWpm, totalRawWpm: calculatedWpmRaw } });
+                navigate('/results', { state: { wpmData: wpmData, totalWpm: calculatedWpm, totalRawWpm: calculatedWpmRaw, acc: acc } });
             }
         } else {
             setCurrentCharIndex(value.length);
