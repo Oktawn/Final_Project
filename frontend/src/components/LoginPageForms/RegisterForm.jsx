@@ -5,6 +5,7 @@ import { SettingStore } from '../../State/useState';
 
 
 const url_reg = "http://localhost:3000/register";
+const url_log = "http://localhost:3000/login";
 
 function RegistrationForm() {
 
@@ -25,6 +26,8 @@ function RegistrationForm() {
 
         try {
             await ky.post(url_reg, { json: { username: formData.username, email: formData.email, password: formData.password } });
+            await ky.post(url_log, { json: { username: formData.username, password: formData.password }, credentials: 'include' });
+            
             console.log('Пользователь успешно зарегистрирован');
             changeAuth();
             navigate('/account');
