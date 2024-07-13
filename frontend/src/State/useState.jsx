@@ -30,7 +30,6 @@ export const testsStore = create((set, get) => ({
     fetchTest: async (user, data, end) => {
         const mode = get().mode;
         const resMode = mode.mode + " " + mode.size;
-        console.log("test", data);
         if (data === null && user !== null) {
             await ky.post(urlResult, {
                 json: {

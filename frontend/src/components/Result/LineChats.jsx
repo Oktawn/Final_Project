@@ -4,7 +4,6 @@ function LineCharts({ wpmData }) {
     const getCSSVariable = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
     const wpmColor = getCSSVariable('--main-color');
     const rawWpmColor = getCSSVariable('--sub-color');
-    console.log(wpmData);
     const data = {
         labels: wpmData.map(dataPoint => dataPoint.time.toFixed(2)),
         datasets: [
