@@ -4,6 +4,7 @@ import Main from "./pages/Main";
 import MainLayout from "../layouts/MainLayout";
 import { SettingStore } from "./State/useState";
 import React, { lazy } from "react";
+import { useCookies } from 'react-cookie';
 
 const Result = lazy(() => import("./pages/Result"));
 const About = lazy(() => import("./pages/About"));
@@ -12,6 +13,14 @@ const Account = lazy(() => import("./pages/Account"));
 
 function Router() {
   const auth = SettingStore((state) => state.isAuth);
+  const changeAuth = SettingStore((state) => state.changeAuth);
+  const [cookies] = useCookies(["user"]);
+  const user = cookies.user;
+
+  if (!user && auth) {
+    changeAuth();
+  }
+
 
   return (
     <div>
